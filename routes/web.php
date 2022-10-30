@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +17,28 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index',[
+        'title' => 'Home',
+        'active' => 'home'
+    ]);
 });
+
+Route::get('/index', function () {
+    return view('index',[
+        'title' => 'Home',
+        'active' => 'home'
+    ]);
+});
+
+Route::get('/about', function () {
+    return view('about',[
+        'title' => 'About',
+        'active' => 'about'
+    ]);
+});
+
+Route::resource('/book', BookController::class);
+
+Route::get('/category', [CategoryController::class,'index']);
+
+Route::get('/author', [AuthorController::class, 'index']);
