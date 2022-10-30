@@ -17,7 +17,7 @@ class AuthorFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->sentence(mt_rand(2,4)),
+            'name' => $this->faker->name(mt_rand(2,4)),
             'alias' => $this->faker->slug()
         ];
     }

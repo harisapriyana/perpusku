@@ -10,20 +10,25 @@ use App\Models\Book;
 class CategoryController extends Controller
 {
     public function index(){
+
         return view ('category.categories', [
-            'title' => 'category',
+            'title' => 'Category',
+            "active" => "category",
             'categories' => Category::all()
         ]);
+        
     }
    
     
     public function show(Category $category){
-        $category = Category::findOrFail('slug', $category);
+    
+         
         $title = 'in ' . $category->name;
 
         return view('category.category',[
             "title" => "All Books " . $title,
-            "books" => Book::latest()->filter(request('category'))
+            "active" => "category",
+            "books" => Book::where('category_id', $category->id)->get()
         ]);
     }
 }
