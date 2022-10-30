@@ -50,11 +50,12 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        return view('book',[
+        return view('book.book',[
             "title" => "Detail of the Book",
             "active" => "book",
-            "blog" => $book
+            "book" => $book
         ]);
+        // return "masuk ke show";
     }
 
     /**
