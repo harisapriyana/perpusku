@@ -41,4 +41,6 @@ Route::resource('/book', BookController::class);
 
 Route::get('/category', [CategoryController::class,'index']);
 
+Route::get('/category/{category:slug}', [CategoryController::class,'show']);
+
 Route::get('/author', [AuthorController::class, 'index']);

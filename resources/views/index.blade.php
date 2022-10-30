@@ -12,7 +12,7 @@
 
     <div class="container mt-4">
         @yield('container')
-       @if($active === "home") 
+       @if( Request::is("index")) 
         <h1 class="mb-3 text-center">{{ $title }}</h1>
        
        @endif
