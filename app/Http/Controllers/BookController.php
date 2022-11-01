@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Author;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class BookController extends Controller
 {
@@ -14,10 +17,33 @@ class BookController extends Controller
      */
     public function index()
     {
+        $title = '';
+        $books = Book::latest()->get();
+
+        if(request('category'))
+        {
+            $category = Category::firstWhere('slug', request('category'));
+            $title = 'in ' . $category->name;
+            $books = Book::where('category_id', $category->id)->get();
+        }
+
+        if(request('author'))
+        {
+            $author = Author::firstWhere('alias', request('author'));
+            $title = 'by ' . $author->name;
+            $books = Book::where('author_id', $author->id)->get();
+        }
+
+        if(request('search'))
+        {
+            $books = Book::where('title', 'like','%' . request('search') . '%')
+                        ->orWhere('body', 'like','%' . request('search') . '%')->get();
+        }
+
         return view('book.books',[
-            'title' => 'All Books',
+            'title' => 'All Books ' .$title,
             "active" => "book",
-            'books' => Book::latest()->get()
+            'books' => $books
         ]);
     }
 
