@@ -28,7 +28,21 @@ class AuthorController extends Controller
         return view('author.author',[
             "title" => "All Books " . $title,
             "active" => "author",
-            "books" => $author->book->load('category', 'author')
+            'req' => $author->alias,
+            // "books" => $author->book->load('category', 'author')
+            "books" =>Book::where('author_id', $author->id)->with('author', 'author')->paginate(9)->withQueryString()
+        ]);
+    }
+
+    public function cari(){
+        $author = Author::firstWhere('alias', request('author'));
+        $title = 'by ' . $author->name;
+
+        return view('author.author',[
+            'title' => 'All Books ' .$title,
+            "active" => "book",
+            'req' => $author->alias,
+            'books' => Book::latest()->filter(request(['search','author']))->paginate(9)->withQueryString()
         ]);
     }
 }

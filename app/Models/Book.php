@@ -14,6 +14,9 @@ class Book extends Model
     protected $guarded = ['id'];
     protected $with = ['author', 'category'];
 
+    
+
+    //function untuk pencarian dan atau ada request pada url
     public function scopeFilter($query, array $filters){
         //menggunakan function when laravel dan null coalescing php
         $query->when($filters['search'] ?? false, function($query, $search)

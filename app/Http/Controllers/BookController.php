@@ -18,11 +18,12 @@ class BookController extends Controller
     public function index()
     {
         $title = '';
-        
+        //mengecek apakah ada request pada url yang berupa category dan atau author untuk mengirimkan title
         if(request('category'))
         {
             $category = Category::firstWhere('slug', request('category'));
             $title = 'in ' . $category->name;
+            // dd(request('category'));
         }
 
         if(request('author'))
@@ -30,7 +31,7 @@ class BookController extends Controller
             $author = Author::firstWhere('alias', request('author'));
             $title = 'by ' . $author->name;
         }
-
+        //pencarian tidak dicek di sini tetapi di model
         // if(request('search'))
         // {
         //     $books->where('title', 'like','%' . request('search') . '%')

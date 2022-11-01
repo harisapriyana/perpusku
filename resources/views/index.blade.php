@@ -9,7 +9,6 @@
   </head>
   <body>
     @include('navbar');
-
     <div class="container mt-4">
         @yield('container')
        @if( Request::is("index")  || ($active === "home")) 

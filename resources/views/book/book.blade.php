@@ -14,7 +14,7 @@
                     {!! $book->body !!}    
                 </article>
                 
-                <a href="/book" class="d-block mt-3 text-decoration-none">Back to All Books</a>
+                <a href="{{ url()->previous() }}" class="d-block mt-3 text-decoration-none">&#171; Back</a>
             </div>
         </div>
     </div>

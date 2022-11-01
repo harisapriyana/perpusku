@@ -43,6 +43,10 @@ Route::get('/category', [CategoryController::class,'index']);
 
 Route::get('/category/{category:slug}', [CategoryController::class,'show']);
 
+Route::get('/category/{category:slug}/cari', [CategoryController::class,'cari']);
+
 Route::get('/author', [AuthorController::class, 'index']);
 
 Route::get('/author/{author:alias}', [AuthorController::class, 'show']);
+
+Route::get('/author/{author:alias}/cari', [AuthorController::class, 'cari']);
