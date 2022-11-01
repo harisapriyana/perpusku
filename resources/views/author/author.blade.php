@@ -31,7 +31,7 @@
 
 
     @else
-        <p class="text-center fs-4">No blog found</p>
+        <p class="text-center fs-4">No book found</p>
     @endif
 
 

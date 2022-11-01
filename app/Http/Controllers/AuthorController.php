@@ -28,7 +28,7 @@ class AuthorController extends Controller
         return view('author.author',[
             "title" => "All Books " . $title,
             "active" => "author",
-            "books" => Book::where('author_id', $author->id)->get()
+            "books" => $author->book->load('category', 'author')
         ]);
     }
 }

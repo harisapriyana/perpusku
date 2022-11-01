@@ -28,7 +28,7 @@ class CategoryController extends Controller
         return view('category.category',[
             "title" => "All Books " . $title,
             "active" => "category",
-            "books" => Book::where('category_id', $category->id)->get()
+            "books" => $category->book->load('category', 'author')
         ]);
     }
 }

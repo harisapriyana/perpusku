@@ -18,7 +18,7 @@ class AuthorFactory extends Factory
     {
         return [
             'name' => $this->faker->name(mt_rand(2,4)),
-            'alias' => $this->faker->slug()
+            'alias' => $this->faker->userName()
         ];
     }
 }
