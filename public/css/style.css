@@ -1,0 +1,38 @@
+.button-atas {
+    color: #020e26;
+    border: 0;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 24px;
+    background-color: #606c6e;
+    border-radius: 50%;
+    position: fixed;
+    z-index: 999;
+    display: none;
+    bottom: 20px;
+    right: 30px;
+    color: whitesmoke;
+}
+
+  .form-signin .form-floating:focus-within {
+    z-index: 2;
+  }
+  
+  .form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .form-registration input{
+    border-radius: 0;
+    margin-bottom: -1px;
+  }

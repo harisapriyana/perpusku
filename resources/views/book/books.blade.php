@@ -14,7 +14,7 @@
               <input type="hidden" name="author" value="{{ request('author') }}">
             @endif
           <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Search...." name="search" value="{{ request('search') }}">
+              <input type="text" class="form-control" placeholder="Search...." name="search" value="{{ request('search') }}" id="search">
               <button class="btn btn-primary" type="submit" >Search</button>
           </div>
         </form>
@@ -23,7 +23,7 @@
     
     @if ($books->count())
     <div class="container">
-        <div class="row">
+        <div class="row row-book">
             @foreach ($books as $book)    
             <div class="col-md-4 mb-3">
                 <div class="card mb-3">

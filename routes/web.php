@@ -1,9 +1,13 @@
 <?php
 
-use App\Http\Controllers\AuthorController;
-use App\Http\Controllers\BookController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Middleware\CekLogin;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PagesController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardBookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,26 +20,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index',[
-        'title' => 'Home',
-        'active' => 'home'
-    ]);
-});
 
-Route::get('/index', function () {
-    return view('index',[
-        'title' => 'Home',
-        'active' => 'home'
-    ]);
-});
+Route::get('/', [PagesController::class, 'index']);
 
-Route::get('/about', function () {
-    return view('about',[
-        'title' => 'About',
-        'active' => 'about'
-    ]);
-});
+Route::get('/about', [PagesController::class, 'about']);
 
 Route::resource('/book', BookController::class);
 
@@ -50,3 +38,22 @@ Route::get('/author', [AuthorController::class, 'index']);
 Route::get('/author/{author:alias}', [AuthorController::class, 'show']);
 
 Route::get('/author/{author:alias}/cari', [AuthorController::class, 'cari']);
+
+Route::get('/login', [LoginController::class, 'index']);
+
+Route::post('/login', [LoginController::class, 'authenticate']);
+
+Route::get('/register', [LoginController::class, 'register']);
+
+Route::post('/register', [LoginController::class, 'store']);
+
+Route::get('/logout', [LoginController::class, 'logout']);
+
+Route::group(['middleware' => ['auth']], function(){
+    Route::group(['middleware' => ['ceklogin:1']], function(){
+        Route::resource('/dashboard', App\Http\Controllers\DashboardBookController::class);
+    });
+    Route::group(['middleware' => ['ceklogin:0']], function(){
+        Route::resource('/cart', BookController::class);
+    });
+});
