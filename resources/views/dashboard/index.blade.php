@@ -13,7 +13,7 @@
     {{-- Bootstrap Icon --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="{!! asset('css/dashboard.css') !!}">
+    <link rel="stylesheet" type="text/css" href="{!! asset('/css/dashboard.css') !!}">
   </head>
   <body>
     

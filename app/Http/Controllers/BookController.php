@@ -52,7 +52,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('cart.cart');
     }
 
     /**
@@ -63,9 +63,10 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('cart.cart');
     }
-
+    
+    
     /**
      * Display the specified resource.
      *

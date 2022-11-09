@@ -57,9 +57,9 @@ class LoginController extends Controller
             } elseif($user->isadmin == 0){
                 return redirect()->intended('/book');
             }
-            return redirect()->intended('/login');
+            return redirect()->intended('/login')->with('errorLogin', 'Access denied!');
         }
-        return redirect('/login');
+        return redirect('/login')->with('errorLogin', 'Login failed!');
     }
 
     public function logout(Request $request){

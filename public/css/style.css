@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .button-atas {
     color: #020e26;
     border: 0;
@@ -16,23 +20,152 @@
     color: whitesmoke;
 }
 
-  .form-signin .form-floating:focus-within {
-    z-index: 2;
-  }
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
   
-  .form-signin input[type="email"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-  }
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
   
-  .form-signin input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
 
-  .form-registration input{
-    border-radius: 0;
-    margin-bottom: -1px;
-  }
+.form-registration input{
+  border-radius: 0;
+  margin-bottom: -1px;
+}
+
+.row-book .img-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  /* height: 215px; */
+}
+
+.row-book .img-box img {
+  max-width: 100%;
+  /* max-height: 160px; */
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.row-book:hover img {
+  /* -webkit-transform: scale(1.1); */
+          /* transform: scale(1.1); */
+          height: 150px;
+}
+
+.row-book{
+  position: relative;
+    /* margin-top: 25px; */
+    padding: 20px 20px;
+    background-color: #f7f8f9;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    overflow: hidden;
+    box-shadow: 5px 5px 5px -5px rgba(0,0,0,.2);
+    /* border: solid #fff 10px; */
+}
+
+
+.row-book:hover .option_container {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+.row-book .option_container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  z-index: 3;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+}
+
+.row-book .options {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.row-book .options a {
+  display: inline-block;
+  padding: 8px 15px;
+  border-radius: 30px;
+  width: 165px;
+  text-align: center;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  margin: 5px 0;
+  text-decoration: none;
+}
+
+.row-book .options button {
+  display: inline-block;
+  padding: 8px 15px;
+  border-radius: 30px;
+  width: 165px;
+  text-align: center;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  margin: 5px 0;
+  text-decoration: none;
+}
+
+.row-book .options .option1 {
+  background-color: #f7444e;
+  border: 1px solid #f7444e;
+  color: #ffffff;
+}
+
+.row-book .options .option1:hover {
+  background-color: transparent;
+  color: #f7444e;
+}
+
+.row-book .options .option2 {
+  background-color: #000000;
+  border: 1px solid #000000;
+  color: #ffffff;
+}
+
+.row-book .options .option2:hover {
+  background-color: transparent;
+  color: #000000;
+}

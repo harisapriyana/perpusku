@@ -27,6 +27,8 @@ Route::get('/about', [PagesController::class, 'about']);
 
 Route::resource('/book', BookController::class);
 
+Route::post('/cart/{book:slug}', [BookController::class, 'store']);
+
 Route::get('/category', [CategoryController::class,'index']);
 
 Route::get('/category/{category:slug}', [CategoryController::class,'show']);
@@ -39,7 +41,7 @@ Route::get('/author/{author:alias}', [AuthorController::class, 'show']);
 
 Route::get('/author/{author:alias}/cari', [AuthorController::class, 'cari']);
 
-Route::get('/login', [LoginController::class, 'index']);
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 
 Route::post('/login', [LoginController::class, 'authenticate']);
 
@@ -47,7 +49,7 @@ Route::get('/register', [LoginController::class, 'register']);
 
 Route::post('/register', [LoginController::class, 'store']);
 
-Route::get('/logout', [LoginController::class, 'logout']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::group(['middleware' => ['auth']], function(){
     Route::group(['middleware' => ['ceklogin:1']], function(){
