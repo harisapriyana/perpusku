@@ -31,8 +31,15 @@
               <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <div class="form-floating">
-                <input type="password" class="form-control rounded-bottom @error('password') is-invalid @enderror" id="floatingPassword" placeholder="Password" name="password" required>
-                <label for="floatingPassword">Password</label>
+                <input type="password" class="form-control rounded-bottom @error('password') is-invalid @enderror" id="password" placeholder="Password" name="password" required>
+                <label for="password">Password</label>
+            </div>
+            @error('password')
+              <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            <div class="form-floating">
+                <input type="text" class="form-control rounded-bottom @error('phone') is-invalid @enderror" id="phone" placeholder="Phone Number" name="phone" required>
+                <label for="phone">Phone Number</label>
             </div>
             @error('password')
               <div class="alert alert-danger">{{ $message }}</div>

@@ -3,6 +3,7 @@
 use App\Http\Middleware\CekLogin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\AuthorController;
@@ -27,7 +28,11 @@ Route::get('/about', [PagesController::class, 'about']);
 
 Route::resource('/book', BookController::class);
 
-Route::post('/cart/{book:slug}', [BookController::class, 'store']);
+Route::post('/cart/checkout', [App\Http\Controllers\CartController::class, 'checkout']);
+
+Route::post('/cart/{book:slug}', [App\Http\Controllers\CartController::class, 'store']);
+
+Route::get('/cart/create', [App\Http\Controllers\CartController::class, 'create']);
 
 Route::get('/category', [CategoryController::class,'index']);
 
@@ -56,6 +61,6 @@ Route::group(['middleware' => ['auth']], function(){
         Route::resource('/dashboard', App\Http\Controllers\DashboardBookController::class);
     });
     Route::group(['middleware' => ['ceklogin:0']], function(){
-        Route::resource('/cart', BookController::class);
+        Route::get('/cart', [BookController::class, 'index']);
     });
 });

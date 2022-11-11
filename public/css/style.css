@@ -169,3 +169,411 @@
   background-color: transparent;
   color: #000000;
 }
+
+/* cart */
+.product-image {
+  float: left;
+  width: 20%;
+}
+.product-details {
+  float: left;
+  width: 37%;
+}
+.product-price-show {
+  float: left;
+  width: 12%;
+}
+.product-quantity {
+  float: left;
+  width: 10%;
+}
+.product-removal {
+  float: left;
+  width: 9%;
+}
+.product-line-price-show {
+  float: left;
+  width: 12%;
+  text-align: right;
+}
+/* This is used as the traditional .clearfix class */
+.group:before, .shopping-cart:before, .column-labels:before, .product:before, .totals-item:before, .group:after, .shopping-cart:after, .column-labels:after, .product:after, .totals-item:after {
+  content: '';
+  display: table;
+}
+.group:after, .shopping-cart:after, .column-labels:after, .product:after, .totals-item:after {
+  clear: both;
+}
+.group, .shopping-cart, .column-labels, .product, .totals-item {
+  zoom: 1;
+}
+/* Apply clearfix in a few places */
+/* Apply dollar signs */
+.product .product-price-show:before, .product .product-line-price-show:before, .totals-value:before {
+  content: '';
+}
+/* Body/Header stuff */
+
+h1 {
+  font-weight: 100;
+}
+label {
+  color: #aaa;
+}
+.shopping-cart {
+  margin-top: -45px;
+}
+/* Column headers */
+.column-labels label {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+.column-labels .product-image, .column-labels .product-details, .column-labels .product-removal {
+  text-indent: -9999px;
+}
+/* Product entries */
+.product {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.product .product-image {
+  text-align: center;
+}
+.product .product-image img {
+  width: 100px;
+}
+.product .product-details .product-title {
+  margin-right: 20px;
+  font-family: 'HelveticaNeue-Medium', 'Helvetica Neue Medium';
+}
+.product .product-details .product-description {
+  margin: 5px 20px 5px 0;
+  line-height: 1.4em;
+}
+.product .product-quantity input {
+  width: 40px;
+}
+.product .remove-product {
+  border: 0;
+  padding: 4px 8px;
+  background-color: #c66;
+  color: #fff;
+  font-family: 'HelveticaNeue-Medium', 'Helvetica Neue Medium';
+  font-size: 12px;
+  border-radius: 3px;
+}
+.product .remove-product:hover {
+  background-color: #a44;
+}
+/* Totals section */
+.totals .totals-item {
+  float: right;
+  clear: both;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.totals .totals-item label {
+  float: left;
+  clear: both;
+  width: 79%;
+  text-align: right;
+}
+.totals .totals-item .totals-value {
+  float: right;
+  width: 21%;
+  text-align: right;
+}
+.totals .totals-item-total {
+  font-family: 'HelveticaNeue-Medium', 'Helvetica Neue Medium';
+}
+.checkout {
+  float: right;
+  border: 0;
+  margin-top: 20px;
+  padding: 6px 25px;
+  background-color: #6b6;
+  color: #fff;
+  font-size: 25px;
+  border-radius: 3px;
+}
+.checkout:hover {
+  background-color: #494;
+}
+/* Make adjustments for tablet */
+@media screen and (max-width: 650px) {
+  .shopping-cart {
+    margin: 0;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+  }
+  .column-labels {
+    display: none;
+  }
+  .product-image {
+    float: right;
+    width: auto;
+  }
+  .product-image img {
+    margin: 0 0 10px 10px;
+  }
+  .product-details {
+    float: none;
+    margin-bottom: 10px;
+    width: auto;
+  }
+  .product-price-show {
+    clear: both;
+    width: 70px;
+  }
+  .product-quantity {
+    width: 100px;
+  }
+  .product-quantity input {
+    margin-left: 20px;
+  }
+  .product-quantity:before {
+    content: 'x';
+  }
+  .product-removal {
+    width: auto;
+  }
+  .product-line-price-show {
+    float: right;
+    width: 70px;
+  }
+}
+/* Make more adjustments for phone */
+@media screen and (max-width: 350px) {
+  .product-removal {
+    float: right;
+  }
+  .product-line-price-show {
+    float: right;
+    clear: left;
+    width: auto;
+    margin-top: 10px;
+  }
+  .product .product-line-price-show:before {
+    content: 'Item Total: $';
+  }
+  .totals .totals-item label {
+    width: 60%;
+  }
+  .totals .totals-item .totals-value {
+    width: 40%;
+  }
+}
+
+/* checkout */
+h2, .total {
+  font-family: Arvo, sans-serif;
+}
+.container-checkout {
+  font-family: PT Sans, sans-serif;
+  font-size: 18px;
+  width: 80%;
+  min-width: 620px;
+  max-width: 1200px;
+  /* height: 560px; */
+  margin: 50px auto;
+  background: #ffe0b1;
+  border-radius: 9px;
+  overflow: hidden;
+}
+.icing, .dough {
+  float: left;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.icing {
+  width: 40%;
+  height: 100%;
+  position: relative;
+  padding-right: 24px;
+  background: linear-gradient(to right, #ff94b3 0%, #ffb3c9 80%);
+  color: white;
+}
+.icing:before {
+  content: '';
+  width: 36px;
+  height: 36px;
+  display: block;
+  position: absolute;
+  top: -18px;
+  right: -7.2px;
+  z-index: 1;
+  background: #ffb3c9;
+  border-radius: 50%;
+  box-shadow: 21.8181818182px 28.8px 0 #ffe0b1, 0 57.6px 0 #ffb3c9, 21.8181818182px 86.4px 0 #ffe0b1, 0 115.2px 0 #ffb3c9, 21.8181818182px 144px 0 #ffe0b1, 0 172.8px 0 #ffb3c9, 21.8181818182px 201.6px 0 #ffe0b1, 0 230.4px 0 #ffb3c9, 21.8181818182px 259.2px 0 #ffe0b1, 0 288px 0 #ffb3c9, 21.8181818182px 316.8px 0 #ffe0b1, 0 345.6px 0 #ffb3c9;
+}
+.dough {
+  width: 60%;
+  padding-left: 36px;
+  color: #90510E;
+}
+.order {
+  flex-grow: 1;
+  padding: 20px 0;
+  margin: 20px 0;
+  border: 1px solid white;
+  border-color: white transparent;
+}
+.order li {
+  display: flex;
+  justify-content: space-between;
+}
+
+h2 {
+  font-size: 1.2em;
+}
+.total {
+  font-size: 2em;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 20px;
+  flex-grow: 1;
+}
+.inputs {
+  flex-grow: 1;
+}
+.buttons {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  line-height: 64px;
+  text-align: center;
+  border: 2px solid #f6a9bd;
+  border-radius: 10px;
+  background: #f6a9bd;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.buttons::before, .buttons::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 2px solid #fff;
+  transition: all 0.5s;
+  -webkit-animation: clippath 3s infinite linear;
+          animation: clippath 3s infinite linear;
+  border-radius: 10px;
+}
+.buttons::after {
+  -webkit-animation: clippath 3s infinite -1.5s linear;
+          animation: clippath 3s infinite -1.5s linear;
+}
+@-webkit-keyframes clippath {
+  0%, 100% {
+    -webkit-clip-path: inset(0 0 98% 0);
+            clip-path: inset(0 0 98% 0);
+  }
+  25% {
+    -webkit-clip-path: inset(0 98% 0 0);
+            clip-path: inset(0 98% 0 0);
+  }
+  50% {
+    -webkit-clip-path: inset(98% 0 0 0);
+            clip-path: inset(98% 0 0 0);
+  }
+  75% {
+    -webkit-clip-path: inset(0 0 0 98%);
+            clip-path: inset(0 0 0 98%);
+  }
+}
+@keyframes clippath {
+  0%, 100% {
+    -webkit-clip-path: inset(0 0 98% 0);
+            clip-path: inset(0 0 98% 0);
+  }
+  25% {
+    -webkit-clip-path: inset(0 98% 0 0);
+            clip-path: inset(0 98% 0 0);
+  }
+  50% {
+    -webkit-clip-path: inset(98% 0 0 0);
+            clip-path: inset(98% 0 0 0);
+  }
+  75% {
+    -webkit-clip-path: inset(0 0 0 98%);
+            clip-path: inset(0 0 0 98%);
+  }
+}
+.rows {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+.column {
+  width: 100%;
+}
+.column:not(:last-child) {
+  margin-right: 10px;
+}
+.label, .text-input {
+  float: left;
+  display: block;
+  clear: both;
+}
+.label {
+  font-size: 0.8em;
+  margin-bottom: 0.2em;
+}
+.text-input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  font-family: inherit;
+  background: white;
+  border: 1px solid rgba(144, 81, 14, 0.4);
+  border-radius: 5px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) inset;
+}
+.cvc-group {
+  flex-basis: 140px;
+}
+.name-group {
+  flex-grow: 1;
+  flex-basis: 200px;
+}
+.expiry-group {
+  flex-basis: 100px;
+}
+.cvc-help {
+  padding: 4px 0;
+  flex-grow: 0;
+  width: 200px;
+  font-size: 0.8em;
+  line-height: 1.3em;
+  opacity: 0.6;
+}
+.order-button {
+  padding: 10px 20px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1em;
+  font-family: inherit;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(144, 81, 14, 0.3);
+  box-shadow: 0 2px 2px rgba(144, 81, 14, 0.1);
+  border-radius: 5px;
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
+}
+.order-button:hover {
+  background: #ff80a5;
+  color: white;
+  border-color: transparent;
+}

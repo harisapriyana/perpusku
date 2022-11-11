@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\User;
 use App\Models\Author;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 
 class BookController extends Controller
 {
@@ -50,9 +52,9 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('cart.cart');
+        // 
     }
 
     /**
@@ -61,11 +63,10 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        return view('cart.cart');
-    }
-    
+    public function store(Request $request,Book $book)
+    {   
+        // 
+    }   
     
     /**
      * Display the specified resource.
@@ -89,9 +90,9 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function edit(Book $book)
+    public function edit()
     {
-        //
+        // 
     }
 
     /**

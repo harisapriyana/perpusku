@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use App\Models\Cart;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,5 +29,15 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrapFive();
         Paginator::useBootstrapFour();
+
+        //global variable
+        // if(Session::get('login')){
+            
+        //     $cart = Cart::where('user_id', auth()->user()->id);
+        //     $cartTotal = $cart->count();
+        //     Session::put('cartTotal',$cartTotal);
+    
+        //     View::share($cartTotal);
+        // }
     }
 }

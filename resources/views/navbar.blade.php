@@ -24,7 +24,12 @@
             </ul>
             <ul class="navbar-nav ms-auto">
               @auth
-              <li><a class="nav-link text-danger fs-3  position-relative" href="/cart/create"><i class="bi bi-cart4"></i><span class="position-absolute bottom-0 start-52 fs-5 translate-middle badge ">99<span class="visually-hidden">cart quantity</span></span></a></li>
+              <li><a class="nav-link text-danger fs-3  position-relative" href="/cart/create"><i class="bi bi-cart4"></i><span class="position-absolute bottom-0 start-55 fs-5 translate-middle bg-danger badge rounded-circle p-2" style="--bs-bg-opacity: .5;">
+                @if(Session::get('cartTotal') > 0 ) 
+                  {{ Session::get('cartTotal') }} 
+                @endif
+              <span class="visually-hidden">cart quantity</span></span></a></li>
+              <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Hi, {{ auth()->user()->name }}

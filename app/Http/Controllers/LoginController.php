@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -29,7 +31,8 @@ class LoginController extends Controller
             'name' => 'required|max:255',
             'username' => 'required|min:5|max:255|unique:users',
             'email' => 'required|email:dns|unique:users',
-            'password' => 'required|min:5|max:255'
+            'password' => 'required|min:5|max:255',
+            'phone' => 'required|unique:users'
         ]);
 
         // $validateData['password'] = bcrypt($validateData['password']);
@@ -53,8 +56,16 @@ class LoginController extends Controller
             $user = Auth::user();
 
             if($user->isadmin == 1){
+                Session::put('login',TRUE);
+                $cart = Cart::where('user_id', auth()->user()->id);
+                $cartTotal = $cart->count();
+                Session::put('cartTotal',$cartTotal);
                 return redirect()->intended('/dashboard');
             } elseif($user->isadmin == 0){
+                Session::put('login',TRUE);
+                $cart = Cart::where('user_id', auth()->user()->id);
+                $cartTotal = $cart->count();
+                Session::put('cartTotal',$cartTotal);
                 return redirect()->intended('/book');
             }
             return redirect()->intended('/login')->with('errorLogin', 'Access denied!');
