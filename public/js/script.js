@@ -40,7 +40,7 @@ $('document').ready(function(){
     //cart
     /* Set rates + misc */
     var taxRate = 0.11;
-    var shippingRate = 15.00; 
+    var shippingRate = 20000; 
     var fadeTime = 300;
 
 

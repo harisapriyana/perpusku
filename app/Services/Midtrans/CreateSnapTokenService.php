@@ -21,22 +21,23 @@ class CreateSnapTokenService extends Midtrans
  
     public function getSnapToken()
     {
-        $orders = Order::with(['book', 'user'])->where('user_id', auth()->user()->id)->get();
-        $data =[[]];
+        $orders = Order::with(['book', 'user'])->where(['user_id' => auth()->user()->id, 'payment_status' => 1])->get();
+        // $data =[[]];
         $total_price = 0;
         $subtotal = 0;
-        $taxRate = 0.05;
-        $shippingRate = 15.00;
+        $taxRate = 0.11;
+        $shippingRate = 20000;
         
         foreach($orders as  $order){
-            $data = [
+            // $dataBaru = [
 
-                'id' => $order->id,
-                'price' => $order->book->price,
-                'quantity' => $order->quantity,
-                'name' => $order->book->title
+            //     'id' => $order->id,
+            //     'price' => $order->book->price,
+            //     'quantity' => $order->quantity,
+            //     'name' => $order->book->title
             
-            ];
+            // ];
+            // $data [][] = $dataBaru;
             $subtotal += $order->book->price * $order->quantity;
             
         }
@@ -49,6 +50,7 @@ class CreateSnapTokenService extends Midtrans
                 'order_id' => $this->order->number,
                 'gross_amount' => intval($total_price),
             ],
+            // 'item_details' => $data,
             'customer_details' => [
                 'first_name' => $this->order->user->username,
                 'email' => $this->order->user->email,

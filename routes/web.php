@@ -32,6 +32,8 @@ Route::post('/cart/stripe', [App\Http\Controllers\CartController::class, 'checko
 // menggunakan midtrans
 Route::post('/cart/midtrans', [App\Http\Controllers\CartController::class, 'order'])->middleware('auth');
 
+Route::post('payments/midtrans-notification', [App\Http\Controllers\CartController::class, 'receive']);
+
 Route::get('/cart/checkout', [App\Http\Controllers\CartController::class, 'create'])->middleware('auth');
 
 Route::post('/cart/{book:slug}', [App\Http\Controllers\CartController::class, 'store'])->middleware('auth');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Cart;
+use App\Models\Head;
 use App\Models\Order;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Services\Midtrans\CreateSnapTokenService;
+use App\Services\Midtrans\CallbackService;
 
 class CartController extends Controller
 {
@@ -115,7 +117,7 @@ class CartController extends Controller
     }
 
 
-    public function order(Request $request, Order $order)
+    public function order(Request $request)
     {
         $validateData = $request->validate([
             'grandTotal' => 'required'
@@ -126,11 +128,9 @@ class CartController extends Controller
         foreach ($carts as $cart){
             Order::create([
                 'user_id' => auth()->user()->id,
-                'book_id' => $cart->id,
+                'book_id' => $cart->book_id,
                 'quantity' => $cart->quantity,
-                'price' => $cart->book->price,
-                'number' => Str::random(8),
-                'payment_status' => 1
+                'number' => Str::random(8)
             ]);
             $cart->delete();
         }
@@ -153,8 +153,15 @@ class CartController extends Controller
                 $order->update();
             }
         }
+        
+        Head::create([
+            'snap_token' => $snapToken,
+            'total_price' =>$request->grandTotal,
+            'payment_status' => 1
+        ]);
+
         $order = Order::with(['book', 'user'])->where(['user_id' => auth()->user()->id, 'payment_status' => 1])->first();
-        $orders = Order::with(['book', 'user'])->where(['user_id' => auth()->user()->id, 'payment_status' => 1])->get();
+        $orders = Order::with(['book', 'user'])->where('user_id', auth()->user()->id)->get();
  
         return view('cart.show', [
             "title" => "CheckOut",
@@ -165,4 +172,50 @@ class CartController extends Controller
             'snapToken' => $snapToken
         ]);
        }
+
+       public function receive()
+    {
+        $callback = new CallbackService;
+ 
+        if ($callback->isSignatureKeyVerified()) {
+            $notification = $callback->getNotification();
+            $orders = $callback->getOrders();
+ 
+            if ($callback->isSuccess()) {
+                foreach($orders as $order){
+                    Order::where('id', $order->id)->update([
+                        'payment_status' => 2,
+                    ]);
+                }
+            }
+ 
+            if ($callback->isExpire()) {
+                foreach($orders as $order){
+                    Order::where('id', $order->id)->update([
+                        'payment_status' => 3,
+                    ]);
+                }
+            }
+ 
+            if ($callback->isCancelled()) {
+                foreach($orders as $order){
+                    Order::where('id', $order->id)->update([
+                        'payment_status' => 4,
+                    ]);
+                }
+            }
+ 
+            return response()
+                ->json([
+                    'success' => true,
+                    'message' => 'Notifikasi berhasil diproses',
+                ]);
+        } else {
+            return response()
+                ->json([
+                    'error' => true,
+                    'message' => 'Signature key tidak terverifikasi',
+                ], 403);
+        }
+    }
 }

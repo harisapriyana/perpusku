@@ -207,7 +207,7 @@
             <span class="text-success">-$5</span>
           </li> --}}
           <li class="list-group-item d-flex justify-content-between">
-            <span>Total (Rp)</span>
+            <span>Total (include Tax & Shipping Fee)</span>
             <strong>{{ "Rp. " . number_format($grandTotal,2,',','.') }}</strong>
           </li>
         </ul>
