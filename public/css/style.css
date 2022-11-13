@@ -40,7 +40,7 @@
   border-radius: 0;
   margin-bottom: -1px;
 }
-
+/* css books content */
 .row-book .img-box {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -70,7 +70,7 @@
 .row-book{
   position: relative;
     /* margin-top: 25px; */
-    padding: 20px 20px;
+    padding: 10px 15px;
     background-color: #f7f8f9;
     -webkit-transition: all .3s;
     transition: all .3s;
@@ -366,6 +366,7 @@ label {
   }
 }
 
+
 /* checkout */
 h2, .total {
   font-family: Arvo, sans-serif;
@@ -373,7 +374,7 @@ h2, .total {
 .container-checkout {
   font-family: PT Sans, sans-serif;
   font-size: 18px;
-  width: 80%;
+  width: 90%;
   min-width: 620px;
   max-width: 1200px;
   /* height: 560px; */
@@ -384,7 +385,7 @@ h2, .total {
 }
 .icing, .dough {
   float: left;
-  padding: 20px;
+  padding: 10px;
   box-sizing: border-box;
   height: 100%;
   display: flex;

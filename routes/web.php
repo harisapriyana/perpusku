@@ -27,12 +27,20 @@ Route::get('/', [PagesController::class, 'index']);
 Route::get('/about', [PagesController::class, 'about']);
 
 Route::resource('/book', BookController::class);
+//  menggunakan stripe
+Route::post('/cart/stripe', [App\Http\Controllers\CartController::class, 'checkout'])->middleware('auth');
+// menggunakan midtrans
+Route::post('/cart/midtrans', [App\Http\Controllers\CartController::class, 'order'])->middleware('auth');
 
-Route::post('/cart/checkout', [App\Http\Controllers\CartController::class, 'checkout']);
+Route::get('/cart/checkout', [App\Http\Controllers\CartController::class, 'create'])->middleware('auth');
 
-Route::post('/cart/{book:slug}', [App\Http\Controllers\CartController::class, 'store']);
+Route::post('/cart/{book:slug}', [App\Http\Controllers\CartController::class, 'store'])->middleware('auth');
 
-Route::get('/cart/create', [App\Http\Controllers\CartController::class, 'create']);
+Route::put('/cart/{id}/edit', [App\Http\Controllers\CartController::class, 'update'])->middleware('auth');
+
+Route::delete('/cart/{id}', [App\Http\Controllers\CartController::class, 'destroy'])->middleware('auth');
+
+Route::get('/cart/create', [App\Http\Controllers\CartController::class, 'create'])->middleware('auth');
 
 Route::get('/category', [CategoryController::class,'index']);
 

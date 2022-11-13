@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
-        <div class="container-fluid ms-5">
+        <div class="container-fluid mx-3">
           <a class="navbar-brand" href="/">Perpusku</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,16 +23,17 @@
               </li>
             </ul>
             <ul class="navbar-nav ms-auto">
-              @auth
               <li><a class="nav-link text-danger fs-3  position-relative" href="/cart/create"><i class="bi bi-cart4"></i><span class="position-absolute bottom-0 start-55 fs-5 translate-middle bg-danger badge rounded-circle p-2" style="--bs-bg-opacity: .5;">
                 @if(Session::get('cartTotal') > 0 ) 
-                  {{ Session::get('cartTotal') }} 
+                {{ Session::get('cartTotal') }} 
+                @else 0
                 @endif
-              <span class="visually-hidden">cart quantity</span></span></a></li>
-              <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <span class="visually-hidden">cart quantity</span></span></a></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+              @auth
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Hi, {{ auth()->user()->name }}
+                  Hi, {{ auth()->user()->username }}
                 </a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="/profile"><i class="bi bi-card-list"></i> Profile</a></li>

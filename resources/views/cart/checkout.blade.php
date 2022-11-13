@@ -9,7 +9,16 @@
         <?php
           $subTotal = $cart->book->price * $cart->quantity; 
         ?>
-        <li><span class="item-count">{{ $cart->quantity }} </span>&nbsp;&nbsp;<span class="item-name">{{ $cart->book->title }}</span>&nbsp;&nbsp;<span class="item-price">{{ "Rp. " . number_format($subTotal,2,',','.') }}</span></li>
+        <li>
+          {{-- <span class="item-count">{{ $cart->quantity }} </span>&nbsp;&nbsp;
+          <span class="item-name">{{ $cart->book->title }}</span>&nbsp;&nbsp;
+          <span class="item-price">{{ "Rp. " . number_format($subTotal,2,',','.') }}</span> --}}
+          <div class="row">
+            <div class="col-md-1">{{ $cart->quantity }}</div>
+            <div class="col-md-6">{{ $cart->book->title }}</div>
+            <div class="col-md-5">{{ "Rp. " . number_format($subTotal,2,',','.') }}</div>
+          </div>
+        </li>
       @endforeach
     </ul>
     <div class="total">{{ "Rp. " . number_format($grandTotal,2,',','.') }}</div>

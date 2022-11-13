@@ -2,7 +2,7 @@
 
 @section('container')
 <div class="row justify-content-center pt-3">
-    <div class="col-md-11">
+    <div class="col-md-11 row-book">
         {{-- Awal Cart --}}
         <h1>Shopping Cart</h1>
 
@@ -31,10 +31,13 @@
                     <div class="product-price-show">{{ "Rp " . number_format($cart->book->price,2,',','.') }}</div>
                     <div class="product-price d-none">{{ $cart->book->price }}</div>
                     <div class="product-quantity">
-                        <input type="number" value="{{ $cart->quantity }}" min="1" name="quantity">
+                        <form action="" method="post">
+                            <input type="hidden" name="quantity" id="qty">
+                        </form>
+                        <input type="number" value="{{ $cart->quantity }}" min="1" data-id="{{ $cart->id }}">
                     </div>
                     <div class="product-removal">
-                    <button class="remove-product">
+                    <button class="remove-product" data-id="{{ $cart->id }}">
                         Remove
                     </button>
                     </div>
@@ -45,9 +48,8 @@
                     <div class="product-line-price d-none">{{ $subTotal }}</div>
                 </div>
             @endforeach
-            <form action="/cart/checkout" method="POST">
+            <form action="/cart/midtrans" method="POST">
             @csrf
-            @method('post')
                 <div class="totals">
                     <div class="totals-item">
                     <label>Subtotal</label>
