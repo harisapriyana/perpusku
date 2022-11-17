@@ -1,5 +1,6 @@
   <!-- ======= Mobile nav toggle button ======= -->
-  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+  <i class="bi bi-list mobile-nav-toggle" onclick="toggleSidebar()"></i>
+  {{-- <button class="burger" onclick="toggleSidebar()"><i class="bi bi-list" id="logoSidebar"></i></button> --}}
 
   <!-- ======= Header ======= -->
   <header id="header">
@@ -29,3 +30,11 @@
       </nav><!-- .nav-menu -->
     </div>
   </header><!-- End Header -->
+
+  <script>
+    const toggleSidebar = () => {
+      document.body.classList.toggle("open");
+      const logo = document.querySelector('.mobile-nav-toggle');
+      logo.classList.toggle("bi bi-list");
+      logo.classList.toggle("bi bi-x");}
+  </script>
