@@ -23,10 +23,10 @@
               </li>
             </ul>
             <ul class="navbar-nav ms-auto">
-              <li><a class="nav-link text-danger fs-3  position-relative" href="/cart/create"><i class="bi bi-cart4"></i><span class="position-absolute bottom-0 start-55 fs-5 translate-middle bg-danger badge rounded-circle p-2" style="--bs-bg-opacity: .5;">
+              <li><a class="nav-link text-danger fs-3  position-relative" href="/cart/create"><i class="bi bi-cart4"></i>
                 @if(Session::get('cartTotal') > 0 ) 
-                {{ Session::get('cartTotal') }} 
-                @else 0
+                  <span class="position-absolute bottom-0 start-55 fs-5 translate-middle bg-danger badge rounded-circle p-2" style="--bs-bg-opacity: .5;">
+                  {{ Session::get('cartTotal') }} 
                 @endif
                 <span class="visually-hidden">cart quantity</span></span></a></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
@@ -36,7 +36,9 @@
                   Hi, {{ auth()->user()->username }}
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/profile"><i class="bi bi-card-list"></i> Profile</a></li>
+                  <li><a class="dropdown-item" href="/costumer"><i class="bi bi-card-list"></i> Profile</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="/costumer/order"><i class="bi bi-card-list"></i> My Order</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li>
                     <form action="/logout" method="post">

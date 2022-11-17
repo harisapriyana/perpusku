@@ -26,7 +26,7 @@
 
                 <!--FullName-->
                 <div class="md-form ">
-                  <input type="text" id="firstName" class="form-control" value="{{ $order->user->name }}">
+                  <input type="text" id="firstName" class="form-control" value="{{ auth()->user()->name }}">
                   <label for="firstName" class="">Full Name</label>
                 </div>
 
@@ -42,12 +42,12 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">@</span>
               </div>
-              <input type="text" class="form-control py-0"  value="{{ $order->user->username }}" aria-describedby="basic-addon1">
+              <input type="text" class="form-control py-0"  value="{{ auth()->user()->username }}" aria-describedby="basic-addon1">
             </div>
 
             <!--email-->
             <div class="md-form mb-5">
-              <input type="text" id="email" class="form-control"  value="{{ $order->user->email }}">
+              <input type="text" id="email" class="form-control"  value="{{ auth()->user()->email }}">
               <label for="email" class="">Email</label>
             </div>
 
@@ -169,13 +169,12 @@
       <!--Grid column-->
       <div class="col-md-4 mb-4">
 
+        <div class="alert alert-success alert-dismissible fade show d-none fs-5" role="alert"></div>
+        <div class="alert alert-warning alert-dismissible fade show d-none fs-5" role="alert"></div>
+        <div class="alert alert-danger alert-dismissible fade show d-none fs-5" role="alert"></div>
         <!-- Heading -->
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-muted">Your cart</span>
-          <div class="alert alert-success d-none" role="alert">
-          <div class="alert alert-error d-none" role="alert">
-            
-          </div>
+          <span class="text-muted">Your cart</span><br>
         </h4>
 
         <!-- Cart -->

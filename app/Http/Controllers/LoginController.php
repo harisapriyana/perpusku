@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Cart;
+use App\Models\User;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -57,16 +59,11 @@ class LoginController extends Controller
 
             if($user->isadmin == 1){
                 Session::put('login',TRUE);
-                $cart = Cart::where('user_id', auth()->user()->id);
-                $cartTotal = $cart->count();
-                Session::put('cartTotal',$cartTotal);
+                Cart::CardTotal();
                 return redirect()->intended('/dashboard');
             } elseif($user->isadmin == 0){
-                Session::put('login',TRUE);
-                $cart = Cart::where('user_id', auth()->user()->id);
-                $cartTotal = $cart->count();
-                Session::put('cartTotal',$cartTotal);
-                return redirect()->intended('/book');
+                Cart::CardTotal();
+                return redirect()->intended('/cart');
             }
             return redirect()->intended('/login')->with('errorLogin', 'Access denied!');
         }

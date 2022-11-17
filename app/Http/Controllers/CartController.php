@@ -18,15 +18,41 @@ class CartController extends Controller
 {
     public function create(Request $request)
     {
-        $carts = Cart::with(['book', 'user'])->where('user_id', auth()->user()->id)->get();
-        $cartTotal = $carts->count();
-        Session::put('cartTotal',$cartTotal);
+        // $carts = Cart::with(['book', 'user'])->where('user_id', auth()->user()->id)->get();
+        // $orders = Order::with(['book', 'user'])->join('heads', 'orders.snap_token', '=','heads.snap_token')->where(['heads.user_id' => auth()->user()->id, 'payment_status' => 1])->get();
+        // $cartTotal = $carts->count() + $orders->count();
+        // Session::put('cartTotal',$cartTotal);
         // Cart::cartTotal();
+        Cart::CardTotal();
+        $carts = Cart::GetAllCart();
+        // $orders = Order::GetAllOrderUnPaid()->get();
+        
+        // $head = Head::GetHeadUnPaid()->first();
+
+        $head = Head::where(['user_id' => auth()->user()->id, 'payment_status' => 1])->first();
+        
+        // echo "<script>alert(".$head.")</script>";
+        // dd($head);
+        if($head != Null){
+            
+            $orders = Order::where('head_id', $head->id)->get();
+            
+            foreach($orders as $order){
+                Cart::create([
+                    'user_id' => auth()->user()->id,
+                    'book_id' => $order->book->id,
+                    'quantity' => $order->quantity
+                ]);
+                $order->delete();
+            }
+            $head->delete();
+        }
         
         return view('cart.cart',[
             "title" => "My Cart",
             "active" => "cart",
-            "carts" => $carts
+            "carts" => $carts,
+            
         ]);
     }
 
@@ -41,15 +67,20 @@ class CartController extends Controller
             'quantity' => $request->quantity
         ]);
  
-        $carts = Cart::with(['book', 'user'])->where('user_id', auth()->user()->id)->get();
-        $cartTotal = $carts->count();
-        Session::put('cartTotal',$cartTotal);
+        // $carts = Cart::with(['book', 'user'])->where('user_id', auth()->user()->id)->get();
+        // $orders = Order::with(['book', 'user'])->join('heads', 'orders.snap_token', '=','heads.snap_token')->where(['heads.user_id' => auth()->user()->id, 'payment_status' => 1])->get();
+        // $cartTotal = $carts->count() + $orders->count();
+        // Session::put('cartTotal',$cartTotal);
         // Cart::cartTotal();
+        Cart::CardTotal();
+        $carts = Cart::GetAllCart();
+        $orders = Order::GetAllOrder();
         
         return view('cart.cart',[
             "title" => "My Cart",
             "active" => "cart",
-            "carts" => $carts
+            "carts" => $carts,
+            "orders" => $orders
         ]);
     }
 
@@ -59,16 +90,21 @@ class CartController extends Controller
             'grandTotal' => 'required'
         ]);
         
-        $carts = Cart::with(['book', 'user'])->where('user_id', auth()->user()->id)->get();
-        $cartTotal = $carts->count();
-        Session::put('cartTotal',$cartTotal);
+        // $carts = Cart::with(['book', 'user'])->where('user_id', auth()->user()->id)->get();
+        // $orders = Order::with(['book', 'user'])->join('heads', 'orders.snap_token', '=','heads.snap_token')->where(['heads.user_id' => auth()->user()->id, 'payment_status' => 1])->get();
+        // $cartTotal = $carts->count() + $orders->count();
+        // Session::put('cartTotal',$cartTotal);
         // Cart::cartTotal();
+        Cart::CardTotal();
+        $carts = Cart::GetAllCart();
+        $orders = Order::GetAllOrder();
         
         return view('cart.checkout', [
                 "title" => "CheckOut",
                 "active" => "cart",
                 "carts" => $carts,
-                'grandTotal' => $request->grandTotal
+                'grandTotal' => $request->grandTotal,
+                "orders" => $orders
             ]);
             // return $request->grandTotal;
     }
@@ -92,9 +128,11 @@ class CartController extends Controller
                 'status' =>200,
                 'message' => 'Product Updated successfully'
                 ]);
-                $carts = Cart::where('user_id', auth()->user()->id);
-                $cartTotal = $carts->count();
-                Session::put('cartTotal',$cartTotal);
+                // $carts = Cart::where('user_id', auth()->user()->id);
+                // $orders = Order::with(['book', 'user'])->join('heads', 'orders.snap_token', '=','heads.snap_token')->where(['heads.user_id' => auth()->user()->id, 'payment_status' => 1])->get();
+                // $cartTotal = $carts->count() + $orders->count();
+                // Session::put('cartTotal',$cartTotal);
+                Cart::CardTotal();
             } else {
                 return response()->json([
                     'status' => 404,
@@ -111,9 +149,7 @@ class CartController extends Controller
             'status' =>200,
             'message' => 'Product Deleted successfully'
         ]);
-        $carts = Cart::where('user_id', auth()->user()->id);
-        $cartTotal = $carts->count();
-        Session::put('cartTotal',$cartTotal);
+        Cart::CardTotal();
     }
 
 
@@ -123,51 +159,49 @@ class CartController extends Controller
             'grandTotal' => 'required'
         ]);
         
-        $carts = Cart::with(['book', 'user'])->where('user_id', auth()->user()->id)->get();
+        $carts = Cart::GetAllCart();
         
+        Head::create([
+            // 'snap_token' => $snapToken,
+            'user_id' => auth()->user()->id,
+            'total_price' =>$request->grandTotal,
+            'number' => Str::random(8)
+            // 'payment_status' => 1
+        ]);
+
+
+        $head = Head::GetHeadUnPaid();
         foreach ($carts as $cart){
             Order::create([
-                'user_id' => auth()->user()->id,
+                'head_id' => $head->id,
                 'book_id' => $cart->book_id,
-                'quantity' => $cart->quantity,
-                'number' => Str::random(8)
+                'quantity' => $cart->quantity
             ]);
             $cart->delete();
         }
-        $order = Order::where(['user_id' => auth()->user()->id, 'payment_status' => 1])->first();
-        $orders = Order::where(['user_id' => auth()->user()->id, 'payment_status' => 1])->get();
-        
-        $carts = Cart::with(['book', 'user'])->where('user_id', auth()->user()->id)->get();
-        $cartTotal = $carts->count();
-        Session::put('cartTotal',$cartTotal);
-        
-        $snapToken = $order->snap_token;
+
+        $snapToken = $head->snap_token;
         if (empty($snapToken)) {
             // Jika snap token masih NULL, buat token snap dan simpan ke database
- 
-            $midtrans = new CreateSnapTokenService($order);
+            
+            $midtrans = new CreateSnapTokenService($head);
             $snapToken = $midtrans->getSnapToken();
- 
-            foreach ($orders as $order){
-                $order->snap_token = $snapToken;
-                $order->update();
-            }
+            
+            $head->snap_token = $snapToken;
+            $head->update();
         }
         
-        Head::create([
-            'snap_token' => $snapToken,
-            'total_price' =>$request->grandTotal,
-            'payment_status' => 1
-        ]);
+       Cart::CardTotal();
 
-        $order = Order::with(['book', 'user'])->where(['user_id' => auth()->user()->id, 'payment_status' => 1])->first();
-        $orders = Order::with(['book', 'user'])->where('user_id', auth()->user()->id)->get();
+        // $order = Order::with(['book', 'user'])->where(['user_id' => auth()->user()->id, 'payment_status' => 1])->first();
+        // $orders = Order::with(['book', 'user'])->where(['user_id' => auth()->user()->id, 'payment_status' => 1])->get();
+        $orders = Order::GetAllOrderUnPaid();
+        // dd($orders);
  
         return view('cart.show', [
             "title" => "CheckOut",
             "active" => "cart",
             "orders" => $orders,
-            "order" => $order,
             'grandTotal' => $request->grandTotal,
             'snapToken' => $snapToken
         ]);
@@ -176,39 +210,41 @@ class CartController extends Controller
        public function receive()
     {
         $callback = new CallbackService;
+        // return "masuk notif";
  
         if ($callback->isSignatureKeyVerified()) {
             $notification = $callback->getNotification();
-            $orders = $callback->getOrders();
+            $head = $callback->getHead();
  
             if ($callback->isSuccess()) {
-                foreach($orders as $order){
-                    Order::where('id', $order->id)->update([
-                        'payment_status' => 2,
-                    ]);
-                }
+                Head::where('id', $head->id)->update([
+                    'payment_status' => 2,
+                    'payment_type' => $notification->payment_type,
+                    'transaction_time' => $notification->transaction_time,
+                ]);
             }
  
             if ($callback->isExpire()) {
-                foreach($orders as $order){
-                    Order::where('id', $order->id)->update([
-                        'payment_status' => 3,
-                    ]);
-                }
+                Head::where('id', $head->id)->update([
+                    'payment_status' => 3,
+                    'payment_type' => $notification->payment_type,
+                    'transaction_time' => $notification->transaction_time,
+                ]);
             }
  
             if ($callback->isCancelled()) {
-                foreach($orders as $order){
-                    Order::where('id', $order->id)->update([
-                        'payment_status' => 4,
-                    ]);
-                }
+                Head::where('id', $head->id)->update([
+                    'payment_status' => 4,
+                    'payment_type' => $notification->payment_type,
+                    'transaction_time' => $notification->transaction_time,
+                ]);
             }
  
             return response()
                 ->json([
                     'success' => true,
                     'message' => 'Notifikasi berhasil diproses',
+                    $head
                 ]);
         } else {
             return response()

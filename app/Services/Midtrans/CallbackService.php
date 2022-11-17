@@ -50,9 +50,9 @@ class CallbackService extends Midtrans
         return $this->notification;
     }
  
-    public function getOrders()
+    public function getHead()
     {
-        return $this->orders;
+        return $this->head;
     }
  
     protected function _createLocalSignatureKey()
@@ -66,15 +66,16 @@ class CallbackService extends Midtrans
     {
         $notification = new Notification();
  
+        // $transactionId = $notification->transaction_id;
         $orderNumber = $notification->order_id;
-        $order = Order::where('number', $orderNumber)->get();
+        // $order = Order::where('number', $orderNumber)->get();
         // cari snap token
         // cari semua order yang memiliki snap token yang sama
         // masukan ke var orders
-        // $order = Head::where('snap_token', $orderNumber)->get();
+        // return $orders = Order::where('snap_token', $order->snap_token)->get();
+        $head = Head::where('number', $orderNumber)->first();
  
         $this->notification = $notification;
-        $this->order = $order;
-        // $this->orders = $orders;
+        $this->head = $head;
     }
 }

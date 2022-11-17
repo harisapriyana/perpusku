@@ -16,7 +16,7 @@
             <label class="product-removal">Remove</label>
             <label class="product-line-price-show">Total</label>
         </div>
-        @if($carts->count() > 0 )
+        @if($carts->count() > 0)
             {{-- {{ $carts->count() }} --}}
             @foreach ($carts as $cart)
               
@@ -48,6 +48,7 @@
                     <div class="product-line-price d-none">{{ $subTotal }}</div>
                 </div>
             @endforeach
+            
             <form action="/cart/midtrans" method="POST">
             @csrf
                 <div class="totals">
@@ -56,7 +57,7 @@
                     <div class="totals-value" id="cart-subtotal"></div>
                     </div>
                     <div class="totals-item">
-                    <label>Tax (5%)</label>
+                    <label>Tax (11%)</label>
                     <div class="totals-value" id="cart-tax"></div>
                     </div>
                         <div class="totals-item">

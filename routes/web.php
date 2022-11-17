@@ -32,7 +32,9 @@ Route::post('/cart/stripe', [App\Http\Controllers\CartController::class, 'checko
 // menggunakan midtrans
 Route::post('/cart/midtrans', [App\Http\Controllers\CartController::class, 'order'])->middleware('auth');
 
-Route::post('payments/midtrans-notification', [App\Http\Controllers\CartController::class, 'receive']);
+Route::get('/cart/midtrans', [App\Http\Controllers\CartController::class, 'create'])->middleware('auth');
+
+Route::post('/payment-notification-handler', [App\Http\Controllers\CartController::class, 'receive']);
 
 Route::get('/cart/checkout', [App\Http\Controllers\CartController::class, 'create'])->middleware('auth');
 
@@ -71,6 +73,8 @@ Route::group(['middleware' => ['auth']], function(){
         Route::resource('/dashboard', App\Http\Controllers\DashboardBookController::class);
     });
     Route::group(['middleware' => ['ceklogin:0']], function(){
-        Route::get('/cart', [BookController::class, 'index']);
+        Route::get('/cart', [App\Http\Controllers\CartController::class, 'create']);
+
+        Route::get('/costumer', [App\Http\Controllers\CostumerController::class, 'index']);
     });
 });

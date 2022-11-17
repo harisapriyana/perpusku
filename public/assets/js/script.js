@@ -20,9 +20,9 @@ $('document').ready(function(){
             document.body.scrollTop > 20 ||
             document.documentElement.scrollTop > 20
         ) {
-            document.querySelector(".button-atas").style.display = "block";
+            document.querySelector(".button-atas").classList.add('active');
         } else {
-            document.querySelector(".button-atas").style.display = "none";
+            document.querySelector(".button-atas").classList.remove('active');
         }
     }
 
@@ -190,28 +190,40 @@ $('document').ready(function(){
             e.preventDefault();
 
             const snapToken = document.querySelector('#snapToken').value;
-            console.log(snapToken);
+            // console.log(snapToken);
             snap.pay(snapToken, {
                 // Optional
                 onSuccess: function(result) {
                     /* You may add your own js here, this is just example */
-                    document.getElementByClassName('alert-success').innerHTML += JSON.stringify(result, null, 2);
-                    document.getElementByClassName('alert-success').classList.remove('d-none');
-                    console.log(result)
+                    $('.alert-success').html('Thank you for your payment, your order on the process');
+                    $('.alert-success').removeClass('d-none');
+                    $('.alert-warning').addClass('d-none');
+                    $('.alert-danger').addClass('d-none');
+                    $('#pay-button').addClass('d-none');
+                    // console.log(result)
+                    // alert(JSON.stringify(result));
                 },
                 // Optional
                 onPending: function(result) {
                     /* You may add your own js here, this is just example */
-                    // document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                    console.log(result)
+                    // document.querySelector('.alert-error').innerHTML += JSON.stringify(result, null, 2);
+                    // document.querySelector('.alert-error').classList.remove('d-none');
+                    $('.alert-warning').html('Your transaction is waiting for payment');
+                    $('.alert-warning').removeClass('d-none');
+                    $('.alert-danger').addClass('d-none');
+                    // alert(JSON.stringify(result));
                 },
                 // Optional
                 onError: function(result) {
                     /* You may add your own js here, this is just example */
-                    document.getElementByClassName('alert-error').innerHTML += JSON.stringify(result, null, 2);
-                    document.getElementByClassName('alert-error').classList.remove('d-none');
-                    console.log(result)
+                    $('.alert-danger').html('We got an error for your payment');
+                    $('.alert-danger').removeClass('d-none');
+                    // alert(JSON.stringify(result));
                 }
             });
         });
     
+
+
+        // Costumer side menu
+        
